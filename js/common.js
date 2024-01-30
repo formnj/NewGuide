@@ -356,6 +356,60 @@ var sticky_gallery = {
     }
 };
 
+function swip_delete(_target){
+    var del_pos = _target.width()*0.7;
+    var sY=0
+        eY=0,
+        sX=0,
+        eX=0,
+        lY=0,
+        lX=0;
+    $(_target).on("touchstart", function (e) {
+        sY = e.originalEvent.touches[0].clientY;
+        sX = e.originalEvent.touches[0].clientX;
+        // $('.draggable li').draggable( "disable" );
+    })
+
+    $(_target).on("touchmove", function (e) {
+        eY = e.originalEvent.changedTouches[0].clientY,
+        eX = e.originalEvent.changedTouches[0].clientX;
+
+        lY = Math.abs(sY - eY);
+        lX = Math.abs(sX - eX);
+        if(lY < lX){
+            console.log('a'+(eX-sX));
+            if((eX-sX) > 0){
+                $(this).css({
+                    transform:'translateX('+(eX-sX)+'px)'
+                });
+                if((eX-sX) > del_pos){
+                    $(this).animate({
+                        height:0,
+                        paddingTop:0,
+                        opacity:0
+                    },{
+                        complete: function(){
+                            _target.parent().find('.delete').remove(); // remove
+                        }
+                    },250);
+                } else {
+                    $('this').stop().animate({
+                        opacity:1
+                    },100);
+                }
+            }
+        }
+    })
+
+    $(_target).on("touchend", function (e) {
+        if((eX-sX) < del_pos){
+            $(this).css({
+                transform:'translateX(0)'
+            });
+        }
+    })
+}
+
 /* text_animation */
 window.addEventListener('scroll', function(){
     let scrollTop = window.scrollY
@@ -378,4 +432,4 @@ window.addEventListener('scroll', function(){
             })
         }
     }
-  })
+});
