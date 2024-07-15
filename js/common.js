@@ -215,39 +215,111 @@ function toast_close(){
     _toast.classList.remove('active')
 }
 
-/* modal open */
-function modal(_target){
-    var _array = [],
-    attr = _target.getAttribute('data-modal'),
-    split = attr.split('-');
+var a;
 
-    for(i=0; i<split.length; i++){
-        _array.push(split[i])
+const modal = {
+    o:(e)=>{
+        a = e.currentTarget;
+    },
+    open:(_target, _type)=>{ //모달 열 때,
+
+        _target = document.getElementById(_target); //open할 모달 아이디.
+        _target.setAttribute('modal-type', _type); //모달 타입.
+
+        _modal = document.querySelectorAll('.modal_wrap.active'); //모달 갯수로 늘어날 모달의 z-index값을 만듦.
+
+        if(!_target.classList.contains('active')){ //모달 중복 z-index값 방어.
+            _target.classList.add('active');
+            _target.setAttribute('z-index', (100 + _modal.length));
+
+            zIdx = Number(_target.getAttribute('z-index')); //z-index 속성값을 선언한 이유는 스타일에서 z-index 값을 꺼낼 대 다른 스타일과 함께 있으면 z-index만 꺼내기 불편해서.
+
+            _target.style.zIndex = zIdx;
+
+            if(document.querySelectorAll('.modal_dim').length > 0){
+                document.querySelector('.modal_dim').style.zIndex = zIdx - 1; //dim z-index 증가. 모달이 새로 뜰 때마다 이전 모달 위로 dim 올림.
+            }
+        }
+
+        if(document.querySelectorAll('.modal_dim').length < 1 && _type.indexOf('no_dim') == -1){ //dim을 하나만 만듦.
+            /* modal dim 만들기 */
+            const dim = document.createElement('div');
+            dim.className = 'modal_dim';
+            document.body.append(dim);
+        }
+        /* //modal dim 만들기 */
+
+        // a = modal.o(event);
+
+        modal.o(event);
+        /* ajax */
+        if(a.hasAttribute('data-cont')){
+            $.ajax({
+                url: './'+a.getAttribute('data-cont')+'.html',
+                method: 'get',
+                //dataType:'html',
+                success: function(data) {
+                    console.log(_target.querySelectorAll('.modal_container').length);
+                    _target.querySelector('.modal_container').innerHTML = data;
+                },
+                complete: function(data) {
+                },
+                error: function(data) {
+                    alert('페이지를 불러오지 못했습니다.');
+                }
+            });
+        }
+        /* //ajax */
+
+    }, close:(_target)=>{ //모달 닫을 때,
+
+        _target = event.target.closest('.modal_wrap');
+
+        _target.classList.remove('active');
+        _target.removeAttribute('modal-type');
+        _target.removeAttribute('style'); //모달 초기화를 위해 속성값 다 제거.
+
+        zIdx = Number(_target.getAttribute('z-index')); //닫히는 모달의 z-index 값을 받아서 dim의 z-index 값 수정
+        _target.removeAttribute('z-index');
+
+        if(document.querySelectorAll('.modal_dim').length > 0 && document.querySelector('.modal_dim').hasAttribute('style')){ //dim이 없는 경우 에러가 나는 것을 벙어.
+            document.querySelector('.modal_dim').style.zIndex = (zIdx-2);
+        }
+
+        /* 모달을 닫을 때, 모달 갯수가  0이거나, 모달 갯수가  0이 아니지만 dim이 없는 모달만 남은 경우 dim을 제거해 줌. */
+        _modal = document.querySelectorAll('.modal_wrap.active');
+
+        let noDimCnt = 0;
+
+        for(i = 0; i < _modal.length; i++) {
+            if(_modal[i].getAttribute('modal-type').indexOf('no_dim') > -1){
+                noDimCnt++;
+            }
+        }
+
+        if(document.querySelectorAll('.modal_dim').length > 0 && _modal.length == noDimCnt) {
+            document.querySelector('.modal_dim').remove();
+        }
+        /* //모달을 닫을 때, 모달 갯수가  0이거나, 모달 갯수가  0이 아니지만 dim이 없는 모달만 남은 경우 dim을 제거해 줌. */
+
+        const body = document.querySelector("body");
+
+        if (body.hasAttribute("scrollY")) {
+        body.classList.remove("lockbody");
+        body.scrollTop = Number(body.getAttribute("scrollY"));
+        body.removeAttribute("scrollY");
+        }
+
+        body.removeEventListener("touchmove", modal.lockScrollHandle, { passive: true });
+    }, lockScrollHandle(event) {
+        const e = event || window.event;
+
+        // 멀티 터치는 터치 되게 한다
+        if (e.touches.length > 1) return;
+
+        // event 초기화 속성이 있음 초기화
+        e.preventDefault();
     }
-
-    const create_modal = document.createElement('div');
-    create_modal.innerHTML = '<div class="modal_inner">'
-    +   '<button class="btn_close" onclick="modal_close(this)">Close</button>'
-    +   '<div class="modal_container"></div>'
-    '</div>'
-    create_modal.setAttribute('class','modal_wrap');
-    create_modal.setAttribute('data-modal',attr);
-
-    if(_array[0] == 'layer'){
-        console.log(_target.parentNode)
-        _target.parentNode.append(create_modal)
-    } else {
-        document.querySelector('body').append(create_modal);
-        document.querySelector('body').style.overflow = 'hidden'
-    }
-
-    ajax(_target.getAttribute('data-cont'), create_modal.querySelector('.modal_container'))
-}
-/* modal close */
-function modal_close(_target){
-    _target.closest('.modal_wrap').remove();
-    document.querySelector('body').style.removeProperty('overflow');
-    // console.log(_target.closest('.modal_wrap'))
 }
 
 /* count_animation javascript */

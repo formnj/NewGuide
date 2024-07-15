@@ -110,21 +110,36 @@ for(let i=0; i<max.length; i++){
                 <div class="item">
                     <h3>Modal</h3>
                     <ul class="explain">
-                        <li>Modal 호출 : modal(this)</li>
-                        <li>data-modal : 사이즈 및 형태 지정 [-dim = 배경 dim처리 / 사이즈 = full, small]</li>
-                        <li>data-cont : 호출할 콘텐츠 경로</li>
+                        <li>Modal 호출 : modal.open('호출할 ID', '타입'); //사이즈 = full, small</li>
+                        <li>data-cont : ajax를 이용하여 모달 콘텐츠 호출할 경우 사용 [data-cont="호출할 콘텐츠 경로"]</li>
                     </ul>
                     <div class="design_box">
     <!-- modal open button -->
-    <a href="#none" onclick="modal(this);" data-modal="full-dim" data-cont="modal_sample/sample_small" class="btn_min btn_ok">Full Modal</a>
-    <a href="#none" onclick="modal(this);" data-modal="small-dim" data-cont="modal_sample/sample_small" class="btn_min btn_ok">small Modal</a>
-    <a href="#none" onclick="modal(this);" data-modal="layer" data-cont="modal_sample/sample_small" class="btn_min btn_ok">Layer Modal</a>
+    <a href="#none" onclick="modal.open('modal', 'full');" data-cont="modal_sample/sample_small" class="btn_min btn_ok">Full Modal</a>
+    <a href="#none" onclick="modal.open('modal', 'small');" class="btn_min btn_ok">Small Modal</a>
+    <a href="#none" onclick="modal.open('modal', 'small no_dim');" data-cont="modal_sample/sample_small" class="btn_min btn_ok">Alert Modal</a>
     <!-- //modal open button -->
-
-    <!-- toast -->
-    <div class="toast">
-    </div>
-    <!-- //toast -->
+    
+    <!-- sample modal -->
+    <div id="modal" class="modal_wrap" style="">
+        <div class="modal_container">
+            <!-- modal header -->
+            <div class="modal_header">Modal Title
+                <a href="#none" onclick="modal.close();" class="btn_close">닫기</a>
+            </div>
+            <!-- //modal header -->
+            <!-- modal content -->
+            <div class="modal_content">Modal Content</div>
+            <!-- //modal content -->
+            <!-- modal bottom -->
+            <div class="modal_bottom">
+                <a href="#none" class="btn_min btn_confirm">확인</a>
+                <a href="#none" onclick="modal.close();" class="btn_min btn_cancel">취소</a>
+            </div>
+            <!-- //modal bottom -->
+        </div>
+	</div>
+    <!-- //sample modal -->
                     </div>
                     <pre class="code_box"><code></code></pre>
                     <pre class="style_box"><code>
