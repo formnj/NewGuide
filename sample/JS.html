@@ -116,8 +116,9 @@ for(let i=0; i<max.length; i++){
                     <div class="design_box">
     <!-- modal open button -->
     <a href="#none" onclick="modal.open('modal', 'full');" data-cont="modal_sample/sample_small" class="btn_min btn_ok">Full Modal</a>
-    <a href="#none" onclick="modal.open('modal', 'small');" class="btn_min btn_ok">Small Modal</a>
-    <a href="#none" onclick="modal.open('modal', 'small no_dim');" data-cont="modal_sample/sample_small" class="btn_min btn_ok">Alert Modal</a>
+    <a href="#none" onclick="modal.open('sam_modal_02', 'small');" class="btn_min btn_ok">Small Modal (sample 02)</a>
+    <a href="#none" onclick="modal.open('sam_modal_03', 'full');" class="btn_min btn_ok">Full Modal (sample 03)</a>
+    <a href="#none" onclick="modal.open('sam_modal_alert', 'small no_dim');" data-cont="modal_sample/sample_small" class="btn_min btn_ok">Alert Modal</a>
     <!-- //modal open button -->
     
     <!-- sample modal -->
@@ -143,9 +144,76 @@ for(let i=0; i<max.length; i++){
                     </div>
                     <pre class="code_box"><code></code></pre>
                     <pre class="style_box"><code>
-onclick="modal(this)" data-modal="사이즈 및 형태" data-cont="호출할 콘텐츠 경로"
+onclick="modal.open(오픈할 모달 ID, 모달 타입);" data-cont="호출할 콘텐츠 경로"
                     </code></pre>
                 </div>
             </li>
         </ul>
     </div>
+
+    <!-- sample modal -->
+    <div id="sam_modal_alert" class="modal_wrap" style="">
+        <div class="modal_container">
+            <!-- modal header -->
+            <div class="modal_header">Modal Title Sample Alert
+                <a href="#none" onclick="modal.close();" class="btn_close">닫기</a>
+            </div>
+            <!-- //modal header -->
+            <!-- modal content -->
+            <div class="modal_content">Modal Content</div>
+            <!-- //modal content -->
+            <!-- modal bottom -->
+            <div class="modal_bottom">
+                <a href="#none" class="btn_min btn_confirm">확인</a>
+                <a href="#none" onclick="modal.close();" class="btn_min btn_cancel">취소</a>
+            </div>
+            <!-- //modal bottom -->
+        </div>
+	</div>
+
+    <div id="sam_modal_02" class="modal_wrap" style="">
+        <div class="modal_container">
+            <!-- modal header -->
+            <div class="modal_header">Modal Title Sample 02
+                <a href="#none" onclick="modal.close();" class="btn_close">닫기</a>
+            </div>
+            <!-- //modal header -->
+            <!-- modal content -->
+            <div class="modal_content">Modal Content</div>
+            <!-- //modal content -->
+            <!-- modal bottom -->
+            <div class="modal_bottom">
+                <a href="#none" class="btn_min btn_confirm">확인</a>
+                <a href="#none" onclick="modal.close();" class="btn_min btn_cancel">취소</a>
+            </div>
+            <!-- //modal bottom -->
+        </div>
+	</div>
+
+
+    <div id="sam_modal_03" class="modal_wrap" style="">
+        <div class="modal_container">
+            <!-- modal header -->
+            <div class="modal_header">Modal Title Sample 03
+                <a href="#none" onclick="modal.close();" class="btn_close">닫기</a>
+            </div>
+            <!-- //modal header -->
+            <!-- modal content -->
+            <div class="modal_content">Modal Content</div>
+            <!-- //modal content -->
+            <!-- modal bottom -->
+            <div class="modal_bottom">
+                <a href="#none" class="btn_min btn_confirm">확인</a>
+                <a href="#none" onclick="modal.close();" class="btn_min btn_cancel">취소</a>
+            </div>
+            <!-- //modal bottom -->
+        </div>
+	</div>
+    <!-- //sample modal -->
+
+    <!-- 멀티 모달 테스트용 스타일 -->
+    <style>
+        .modal_wrap.active {width:500px !important; height:500px !important;}
+        .modal_dim {width:540px !important; height:540px !important}
+    </style>
+    <!-- //멀티 모달 테스트용 스타일 -->

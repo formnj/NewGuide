@@ -215,8 +215,6 @@ function toast_close(){
     _toast.classList.remove('active')
 }
 
-var a;
-
 const modal = {
     o:(e)=>{
         a = e.currentTarget;
