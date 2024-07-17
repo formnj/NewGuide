@@ -28,6 +28,20 @@
 #header, #footer{width: 100%; background-color: orangered;}
 h4 {font-size: 28px; font-weight: 600; text-align: center;}
 
+/* button */
+[class*='btn_'] {border:1px solid transparent; vertical-align:middle; display:inline-block;}
+
+/* button size */
+[class*='btn_min'] {height:32px; padding:0 10px; font-size:13px; font-weight:500; line-height:30px;}
+[class*='btn_mid'] {height:42px; padding:0 10px; font-size:14px; font-weight:500; line-height:40px;}
+[class*='btn_large'] {height:50px; padding:0 15px; font-size:18px; font-weight:500; line-height:48px;}
+
+/* button color */
+.btn_confirm {color:#fff; background-color:#333;}
+.btn_cancel {border-color:#333;}
+.btn_ok {color:#fff; background-color:#333;}
+.btn_list {border-color:#333;}
+
 /* tab */
 .tab_wrap [class*='tab_type'] {display:flex;}
 .tab_wrap [class*='tab_type'] > li {flex:1;}
