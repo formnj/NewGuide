@@ -54,6 +54,21 @@
 
 <script>
     $(document).ready(function(){
+        var panel_menu = ['Accordion',
+                'Tab',
+                'Form_Group',
+                'Multi_Form',
+                'Progressbar',
+                'Scrollupdown',
+                'Input',
+                'Modal',
+                'Toast'].sort()
+            
+            //sort_menu = panel_menu.sort();
+        for(i=0; i<panel_menu.length; i++){
+            $('.panel ul').append('<li><button>'+panel_menu[i]+'</button></li>');
+        }
+
         /* page load */
         $('.panel').delegate('button','click', function(e){
             var title = $(this).text();
@@ -141,16 +156,7 @@
     </header>
     <div id="container">
         <div class="panel">
-            <ul>
-                <li><button>Accordion</button></li>
-                <li><button>Tab</button></li>
-                <li><button>Form Group</button></li>
-                <li><button>Multi Form</button></li>
-                <li><button>Progressbar</button></li>
-                <li><button>Scrollupdown</button></li>
-                <li><button>Input</button></li>
-                <li><button>Modal</button></li>
-            </ul>
+            <ul></ul>
         </div>
         <div class="content">
             <h2>Title
