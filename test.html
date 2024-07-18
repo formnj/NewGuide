@@ -80,7 +80,7 @@
 
             } else {
                 $.ajax({
-                    url: './pages/'+title+'.html',
+                    url: './pages/'+(title.toLowerCase())+'.html',
                     method: 'get',
                     //dataType:'html',
                     success: function(data) {
