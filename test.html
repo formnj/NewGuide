@@ -37,6 +37,13 @@
     .content {padding:2.5rem; background-color:#fff; border-radius:0.5rem; flex:1; display:flex; flex-direction:column;}
     .content h2 {margin-bottom:1.4rem; padding-bottom:1.5rem; font-size:2rem; font-weight:700; position:relative;}
     .content h2 button {margin-left:1.5rem; padding:0.4rem 0.6rem; color:#fff; font-size:1.2rem; font-weight:400; background-color:#222; border-radius:0.4rem;}
+    .content h2 button.active {color:#222; background-color:#f2f2f2;}
+
+    .explain {margin-bottom:2rem;}
+    .explain li {padding-left:10px; position:relative;}
+    .explain li + li {margin-top:5px;}
+    .explain li:before {width:3px; height:3px; background-color:#666; content:''; position:absolute; top:10px; left:0; display:inline-block;}
+
     .design {padding:1rem; border:0.1rem solid #ddd;}
     .code {margin-top:1rem; padding:2rem; color: #222; font-size:1.4rem; line-height: 1.4; white-space: pre-wrap; background-color: #f2f2f2; border: 1px solid #ddd; overflow:auto; display:none;}
     .code.active {display:block;}
@@ -63,7 +70,9 @@
                         +'<div class="design"></div>'
                         +'<pre class="code"><code></code></pre>');
                         $('.content h2').text(e.currentTarget.innerText);
+                        console.log(data)
                         $('.content .design').html(data);
+                        $('.content h2').after($('.content .design').find('.explain'));
     
                         //
                         var sample_list = document.querySelectorAll('.content');
@@ -81,9 +90,11 @@
                                 if(code[0].classList.contains('active')){
                                     code[0].classList.remove("active");
                                     e.currentTarget.textContent = "View source"
+                                    e.currentTarget.classList.remove('active')
                                 } else {
                                     code[0].classList.add("active");
                                     e.currentTarget.textContent = "Hide source"
+                                    e.currentTarget.classList.add('active')
                                 }
                             });
                             
@@ -143,6 +154,8 @@
             </h2>
         </div>
     </div>
+
+    <footer></footer>
 
     <!-- modal -->
      <div id="code_modal" class="modal_wrap"></div>
