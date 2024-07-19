@@ -10,7 +10,6 @@
 <link rel="stylesheet" href="./css/form.css">
 
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-<script type="text/javascript" async="" src="./js/jquery.js"></script>
 <script type="text/javascript" async="" src="./js/common.js"></script>
 
 <style>
@@ -34,7 +33,7 @@
     .panel button {font-weight:700;}
     .panel li li button {font-weight:400;}
 
-    .content {padding:2.5rem; background-color:#fff; border-radius:0.5rem; flex:1; display:flex; flex-direction:column;}
+    .content {padding:2.5rem; background-color:#fff; border-radius:0.5rem; overflow:auto; flex:1; display:flex; flex-direction:column;}
     .content h2 {margin-bottom:1.4rem; padding-bottom:1.5rem; font-size:2rem; font-weight:700; position:relative;}
     .content h2 button {margin-left:1.5rem; padding:0.4rem 0.6rem; color:#fff; font-size:1.2rem; font-weight:400; background-color:#222; border-radius:0.4rem;}
     .content h2 button.active {color:#222; background-color:#f2f2f2;}
@@ -44,7 +43,7 @@
     .explain li + li {margin-top:5px;}
     .explain li:before {width:3px; height:3px; background-color:#666; content:''; position:absolute; top:10px; left:0; display:inline-block;}
 
-    .design {padding:1rem; border:0.1rem solid #ddd;}
+    .design {padding:1rem; border:0.1rem solid #ddd; overflow:auto;}
     .code {margin-top:1rem; padding:2rem; color: #222; font-size:1.4rem; line-height: 1.4; white-space: pre-wrap; background-color: #f2f2f2; border: 1px solid #ddd; overflow:auto; display:none;}
     .code.active {display:block;}
 
@@ -54,6 +53,22 @@
 
 <script>
     $(document).ready(function(){
+        var panel_menu = ['Accordion',
+                'Tab',
+                'Form_Group',
+                'Multi_Form',
+                'Progressbar',
+                'Scrollupdown',
+                'Input',
+                'Modal',
+                'Toast',
+                'Swiper'].sort()
+            
+            //sort_menu = panel_menu.sort();
+        for(i=0; i<panel_menu.length; i++){
+            $('.panel ul').append('<li><button>'+panel_menu[i]+'</button></li>');
+        }
+
         /* page load */
         $('.panel').delegate('button','click', function(e){
             var title = $(this).text();
@@ -65,7 +80,7 @@
 
             } else {
                 $.ajax({
-                    url: './pages/'+title+'.html',
+                    url: './pages/'+(title.toLowerCase())+'.html',
                     method: 'get',
                     //dataType:'html',
                     success: function(data) {
@@ -73,7 +88,6 @@
                         +'<div class="design"></div>'
                         +'<pre class="code"><code></code></pre>');
                         $('.content h2').text(e.currentTarget.innerText);
-                        console.log(data)
                         $('.content .design').html(data);
                         $('.content h2').after($('.content .design').find('.explain'));
     
@@ -142,15 +156,7 @@
     </header>
     <div id="container">
         <div class="panel">
-            <ul>
-                <li><button>Accordion</button></li>
-                <li><button>Tab</button></li>
-                <li><button>Form Group</button></li>
-                <li><button>Multi Form</button></li>
-                <li><button>Progressbar</button></li>
-                <li><button>Scrollupdown</button></li>
-                <li><button>Input</button></li>
-            </ul>
+            <ul></ul>
         </div>
         <div class="content">
             <h2>Title
@@ -162,7 +168,10 @@
     <footer></footer>
 
     <!-- modal -->
-     <div id="code_modal" class="modal_wrap"></div>
+     <div id="code_modal" class="modal_wrap">
+        <div class="modal_container"></div>
+     </div>
+     </div>
     <!-- //modal -->
 </div>
     

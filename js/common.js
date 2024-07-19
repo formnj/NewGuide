@@ -244,12 +244,11 @@ const modal = {
             const dim = document.createElement('div');
             dim.className = 'modal_dim';
             document.body.append(dim);
+            /* //modal dim 만들기 */
         }
-        /* //modal dim 만들기 */
-
-        // a = modal.o(event);
 
         modal.o(event);
+
         /* ajax */
         if(a.hasAttribute('data-cont')){
             $.ajax({
@@ -257,7 +256,6 @@ const modal = {
                 method: 'get',
                 //dataType:'html',
                 success: function(data) {
-                    console.log(_target.querySelectorAll('.modal_container').length);
                     _target.querySelector('.modal_container').innerHTML = data;
                 },
                 complete: function(data) {
@@ -268,6 +266,11 @@ const modal = {
             });
         }
         /* //ajax */
+
+        /* layer position */
+        if(_target.getAttribute('modal-type').indexOf('layer') > -1){
+            _target.style.cssText = 'top:'+a.offsetTop+'px; left:'+(a.offsetLeft + a.offsetWidth)+'px'
+        }
 
     }, close:(_target)=>{ //모달 닫을 때,
 
